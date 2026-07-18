@@ -1,8 +1,8 @@
 from http import HTTPStatus
 
 import allure
-import pytest
 
+from api.bugs import xfail_bug
 from api.endpoints import Assets, Findings, Reports, Scans
 from config import USERS
 
@@ -31,11 +31,7 @@ def test_asset_not_listed_across_organizations(
 @allure.story("GET /assets/{id}")
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/1 - "
-    "IDOR - no org check on direct resource access",
-    strict=True,
-)
+@xfail_bug(1, "IDOR - no org check on direct resource access")
 def test_cross_org_user_cannot_read_asset_by_id(
     alpha_admin_client, beta_admin_client, alpha_asset
 ):
@@ -49,11 +45,7 @@ def test_cross_org_user_cannot_read_asset_by_id(
 @allure.story("PUT /assets/{id}")
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/1 - "
-    "IDOR - no org check on direct resource access",
-    strict=True,
-)
+@xfail_bug(1, "IDOR - no org check on direct resource access")
 def test_cross_org_user_cannot_update_asset_by_id(
     alpha_admin_client, beta_admin_client, alpha_asset
 ):
@@ -69,11 +61,7 @@ def test_cross_org_user_cannot_update_asset_by_id(
 @allure.story("DELETE /assets/{id}")
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/1 - "
-    "IDOR - no org check on direct resource access",
-    strict=True,
-)
+@xfail_bug(1, "IDOR - no org check on direct resource access")
 def test_cross_org_user_cannot_delete_asset_by_id(
     alpha_admin_client, beta_admin_client, make_asset_payload
 ):
@@ -95,11 +83,7 @@ def test_cross_org_user_cannot_delete_asset_by_id(
 @allure.story("PATCH /findings/{id}/status")
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/1 - "
-    "IDOR - no org check on direct resource access",
-    strict=True,
-)
+@xfail_bug(1, "IDOR - no org check on direct resource access")
 def test_cross_org_user_cannot_update_finding_status(
     alpha_admin_client, beta_admin_client, alpha_asset, make_finding_payload
 ):

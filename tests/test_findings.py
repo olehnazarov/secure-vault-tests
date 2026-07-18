@@ -3,6 +3,7 @@ from http import HTTPStatus
 import allure
 import pytest
 
+from api.bugs import xfail_bug
 from api.endpoints import Findings
 from api.models import FindingStatus, Severity
 
@@ -80,13 +81,7 @@ def test_update_status_for_nonexistent_finding_returns_404(alpha_admin_client):
 @allure.epic("Findings")
 @allure.feature("Lifecycle")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="BUG: PATCH /findings/{id}/status does not enforce the "
-    "open -> mitigated -> closed state machine - both a skip-ahead "
-    "(open -> closed) and a backward (closed -> open) transition return 200 "
-    "instead of being rejected.",
-    strict=True,
-)
+@xfail_bug(13, "Invalid finding status transitions are not rejected")
 @pytest.mark.parametrize(
     "setup_statuses, target_status",
     [
@@ -134,11 +129,8 @@ def test_analyst_can_update_finding_status(
 @allure.epic("Findings")
 @allure.feature("RBAC")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/5 - "
-    "analyst role can create findings via POST /findings (got 200), "
-    "Product Overview restricts analyst to read access plus status updates only",
-    strict=True,
+@xfail_bug(
+    5, "RBAC bypass - analyst can create/trigger resources (/assets, /findings, /scans)"
 )
 def test_analyst_cannot_create_finding(
     alpha_analyst_client, alpha_asset, make_finding_payload
@@ -177,6 +169,26 @@ def test_create_finding_invalid_severity_is_rejected(
     assert response.status_code == HTTPStatus.BAD_REQUEST
 
 
+@allure.title("Reject a finding with empty title and description")
+@allure.epic("Findings")
+@allure.feature("Validation")
+@allure.tag("negative")
+@xfail_bug(12, "No content validation on required finding fields")
+def test_create_finding_with_empty_content_is_rejected(
+    alpha_admin_client, alpha_asset, make_finding_payload
+):
+    response = alpha_admin_client.post(
+        Findings.LIST,
+        json=make_finding_payload(
+            alpha_asset["id"],
+            title="",
+            severity=Severity.CRITICAL,
+            description="",
+        ),
+    )
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+
+
 @allure.title("Filter findings by severity and asset ID")
 @allure.epic("Findings")
 @allure.feature("Filtering")
@@ -207,12 +219,7 @@ def test_filter_findings_by_severity_and_asset(
 @allure.epic("Findings")
 @allure.feature("Filtering")
 @allure.tag("positive")
-@pytest.mark.xfail(
-    reason="BUG: severity/status filters on GET /findings are case-sensitive "
-    "(severity=high returns 0 results while severity=HIGH returns matches), "
-    "contradicting the documented 'Case-Insensitive Filters' rule.",
-    strict=True,
-)
+@xfail_bug(6, "severity/status filters on GET /findings are case-sensitive")
 def test_severity_filter_is_case_insensitive(
     alpha_admin_client, alpha_asset, make_finding_payload
 ):
@@ -267,12 +274,7 @@ def test_filter_findings_by_status(
 @allure.epic("Findings")
 @allure.feature("Filtering")
 @allure.tag("positive")
-@pytest.mark.xfail(
-    reason="BUG: the `status` filter on GET /findings is case-sensitive too "
-    "(status=open returns matches, status=OPEN returns 0), same root cause "
-    "as the severity filter bug.",
-    strict=True,
-)
+@xfail_bug(6, "severity/status filters on GET /findings are case-sensitive")
 def test_status_filter_is_case_insensitive(
     alpha_admin_client, alpha_asset, make_finding_payload
 ):

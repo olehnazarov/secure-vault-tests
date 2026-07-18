@@ -4,6 +4,7 @@ from http import HTTPStatus
 import allure
 import pytest
 
+from api.bugs import xfail_bug
 from api.endpoints import Assets, Findings
 
 VALID_ASSET_TYPES = {"EC2", "S3", "RDS", "Lambda", "EKS", "VPC"}
@@ -67,11 +68,7 @@ def test_create_asset_invalid_type_is_rejected(
 @allure.epic("Assets")
 @allure.feature("Validation")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="BUG: POST /assets accepts empty strings for name/cloud_account/region "
-    "(returns 200); only asset_type is actually enforced as required.",
-    strict=True,
-)
+@xfail_bug(11, "No content validation on required asset fields")
 def test_create_asset_with_empty_fields_is_rejected(
     alpha_admin_client, make_asset_payload
 ):
@@ -119,11 +116,8 @@ def test_nonexistent_asset_id_returns_404(alpha_admin_client, method, kwargs):
 @allure.epic("Assets")
 @allure.feature("RBAC")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/5 - "
-    "analyst role can create assets via POST /assets (got 200), "
-    "Product Overview restricts asset creation to admin-only",
-    strict=True,
+@xfail_bug(
+    5, "RBAC bypass - analyst can create/trigger resources (/assets, /findings, /scans)"
 )
 def test_analyst_cannot_create_asset(alpha_analyst_client, make_asset_payload):
     response = alpha_analyst_client.post(Assets.LIST, json=make_asset_payload())
@@ -168,10 +162,8 @@ def test_analyst_cannot_update_asset(alpha_analyst_client, alpha_asset):
 @allure.epic("Assets")
 @allure.feature("Business Rules")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/3 - "
-    "DELETE asset with open findings returns 500 with stack trace instead of 409",
-    strict=True,
+@xfail_bug(
+    3, "DELETE asset with open findings returns 500 with stack trace instead of 409"
 )
 def test_cannot_delete_asset_with_open_findings(
     alpha_admin_client, alpha_asset, make_finding_payload

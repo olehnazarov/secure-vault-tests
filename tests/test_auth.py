@@ -4,6 +4,7 @@ import allure
 import pytest
 
 from api.api_client import ApiClient
+from api.bugs import xfail_bug
 from api.endpoints import Assets, Auth, Findings, Reports, Scans
 from config import BASE_URL, USERS
 
@@ -72,11 +73,7 @@ def test_login_unknown_user(api_client):
 @allure.epic("Authentication")
 @allure.feature("Authorization")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="BUG: openapi.json declares 401 for unauthenticated requests, "
-    "but the live API returns 403 ('Not authenticated') instead.",
-    strict=True,
-)
+@xfail_bug(9, "Unauthenticated request returns 403 instead of documented 401")
 @pytest.mark.parametrize(
     "method, path", NO_TOKEN_CASES, ids=[f"{m.upper()} {p}" for m, p in NO_TOKEN_CASES]
 )
@@ -102,12 +99,7 @@ def test_request_with_invalid_token_is_rejected(api_client):
 @allure.feature("Session")
 @allure.story("Logout")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="BUG: an access_token issued at login is still accepted after "
-    "logout (GET /assets returns 200 instead of 401/403)."
-    "Logout only kills the refresh token",
-    strict=True,
-)
+@xfail_bug(10, "Access token remains valid after logout")
 def test_access_token_rejected_after_logout(api_client):
     user = USERS["alpha_admin"]
     login_res = api_client.post(
@@ -131,11 +123,7 @@ def test_access_token_rejected_after_logout(api_client):
 @allure.story("Refresh Token")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/2 - "
-    "Refresh token is not one-time use",
-    strict=True,
-)
+@xfail_bug(2, "Refresh token is not one-time use")
 def test_one_time_refresh_token(api_client):
     user = USERS["alpha_admin"]
     login_res = api_client.post(

@@ -4,6 +4,7 @@ from http import HTTPStatus
 import allure
 import pytest
 
+from api.bugs import xfail_bug
 from api.endpoints import Assets, Findings, Scans
 from api.models import ScanStatus
 from config import USERS
@@ -66,11 +67,9 @@ def test_analyst_can_read_scan_status(alpha_admin_client, alpha_analyst_client):
 @allure.epic("Discovery Scans")
 @allure.feature("RBAC")
 @allure.tag("negative")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/5 - "
-    "analyst role can trigger scans via POST /scans (got 200), "
-    "Product Overview restricts analyst to read access plus finding status updates only",
-    strict=True,
+@xfail_bug(
+    5,
+    "RBAC bypass - analyst can create/trigger resources (/assets, /findings, /scans)",
 )
 def test_analyst_cannot_trigger_scan(alpha_analyst_client):
     response = alpha_analyst_client.post(Scans.LIST)

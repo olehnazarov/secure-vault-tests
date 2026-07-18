@@ -3,6 +3,7 @@ from http import HTTPStatus
 import allure
 import pytest
 
+from api.bugs import xfail_bug
 from api.endpoints import Assets, Findings, Reports
 from api.models import FindingStatus, Severity
 from config import USERS
@@ -92,10 +93,8 @@ def test_analyst_can_read_report_summary(alpha_analyst_client):
 @allure.epic("Reports")
 @allure.feature("Summary")
 @allure.tag("positive")
-@pytest.mark.xfail(
-    reason="https://github.com/olehnazarov/secure-vault-tests/issues/4 - "
-    '/reports/summary returns 500 "division by zero" for org with no findings',
-    strict=True,
+@xfail_bug(
+    4, '/reports/summary returns 500 "division by zero" for org with no findings'
 )
 def test_report_summary_for_org_with_no_findings(beta_admin_client):
     response = beta_admin_client.get(Reports.SUMMARY)
