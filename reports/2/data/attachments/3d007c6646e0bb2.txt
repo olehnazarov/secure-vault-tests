@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/auth/refresh
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'content-length': '107', 'content-type': 'application/json'}
+Body:
+{"refresh_token": "7-WNUiUWwm3zSV4Ufx595mtHmLoaBYd9oaIXjDTuJ4uWeYx75ol2Tax12faFLn5clYPiHuJLUrUwcwtIa1mAsQ"}
+
+=== RESPONSE ===
+Status Code: 401
+Headers: {'date': 'Sat, 18 Jul 2026 15:26:52 GMT', 'server': 'uvicorn', 'content-length': '45', 'content-type': 'application/json'}
+Body:
+{"detail":"Invalid or expired refresh token"}

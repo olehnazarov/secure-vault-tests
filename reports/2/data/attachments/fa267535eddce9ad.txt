@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: PATCH
+URL: http://18.215.161.231:8000/findings/00000000-0000-0000-0000-000000000000/status
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]', 'content-length': '23', 'content-type': 'application/json'}
+Body:
+{"status": "mitigated"}
+
+=== RESPONSE ===
+Status Code: 404
+Headers: {'date': 'Sat, 18 Jul 2026 15:26:53 GMT', 'server': 'uvicorn', 'content-length': '30', 'content-type': 'application/json'}
+Body:
+{"detail":"Finding not found"}

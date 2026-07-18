@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/auth/login
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'content-length': '56', 'content-type': 'application/json'}
+Body:
+{"email": "admin@org-beta.com", "password": "Beta@1234"}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:26:57 GMT', 'server': 'uvicorn', 'content-length': '377', 'content-type': 'application/json'}
+Body:
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NzdmZjc1ZS05NDE1LTQxNWYtYmIyNi1lMjE3MWE5YTc3YTYiLCJvcmciOiJvcmctYmV0YSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc4NDM5MDIxOCwiaWF0IjoxNzg0Mzg4NDE4fQ.kcYxU02jvjCzcCESi49hsE_Di0G2rbcmCzjjHRv7IpY","refresh_token":"vHuPaaGnJUuAZ6HZZf_rgIZp7YPkUlHTtc1zGFdAX4b4uWwPys9txiG92CZjVyvDsi1SkX4Yh1jK2pp7J1EYBQ","token_type":"bearer"}

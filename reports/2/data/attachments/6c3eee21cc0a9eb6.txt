@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/auth/refresh
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'content-length': '107', 'content-type': 'application/json'}
+Body:
+{"refresh_token": "90Xs7xCVaYjsPUyQb4BFXxuY5Kv24PV8DmgIS6o2Ek3Q1Auq4BtVoicmZ98DAb3PNfv4foCRETF4pRwOBCnAAQ"}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:26:52 GMT', 'server': 'uvicorn', 'content-length': '378', 'content-type': 'application/json'}
+Body:
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNjFhMTA5Yi1kNDUyLTQ1NjYtYmM2MC02MTlhZjcyZTEzNWEiLCJvcmciOiJvcmctYWxwaGEiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODQzOTAyMTIsImlhdCI6MTc4NDM4ODQxMn0.Y-kIYRB3U2EnE928tQoddyGFAcYrHY3QYErRP64Jazk","refresh_token":"KSg5X_2X8IwDXWdgoRscf1nUKgy22rjFpr4VXISjRugl5c6uwOVmI3oomcUJGQMjslrZr3o2kAtSRyFBE9pW8g","token_type":"bearer"}
