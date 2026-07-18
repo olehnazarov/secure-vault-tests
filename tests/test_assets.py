@@ -31,16 +31,29 @@ def test_create_and_get_asset(alpha_admin_client, make_asset_payload, asset_type
     assert delete_res.status_code == HTTPStatus.OK
 
 
-@allure.title("Update an asset's name")
+@allure.title("Update an asset's name, region, cloud_account, tags, and asset_type")
 @allure.epic("Assets")
 @allure.feature("CRUD")
 @allure.tag("positive")
+@xfail_bug(14, "PUT /assets/{id} silently ignores asset_type changes")
 def test_update_asset(alpha_admin_client, alpha_asset):
-    update_res = alpha_admin_client.put(
-        Assets.by_id(alpha_asset["id"]), json={"name": "Renamed Asset"}
+    update_payload = {
+        "name": "Renamed Asset",
+        "region": "eu-central-1",
+        "cloud_account": "222222222222",
+        "tags": {"env": "staging"},
+        "asset_type": "S3",
+    }
+    response = alpha_admin_client.put(
+        Assets.by_id(alpha_asset["id"]), json=update_payload
     )
-    assert update_res.status_code == HTTPStatus.OK
-    assert update_res.json()["name"] == "Renamed Asset"
+    assert response.status_code == HTTPStatus.OK
+    response = response.json()
+    assert response["name"] == update_payload["name"]
+    assert response["region"] == update_payload["region"]
+    assert response["cloud_account"] == update_payload["cloud_account"]
+    assert response["tags"] == update_payload["tags"]
+    assert response["asset_type"] == update_payload["asset_type"]
 
 
 @allure.title("Reject asset creation with an invalid asset_type")
