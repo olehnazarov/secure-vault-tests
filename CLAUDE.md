@@ -27,7 +27,7 @@ lives here - tests only, run against the real deployed API (`/openapi.json`). Py
 - `config.py` - `BASE_URL`, `USERS`
 - `api/api_client.py` - `httpx.Client` wrapper with `@allure.step` request/response logging; always use this, never raw `httpx.Client`
 - `conftest.py` - session-scoped authenticated clients (`alpha_admin_client`, `alpha_analyst_client`, `beta_admin_client`) + factory fixtures (`make_asset_payload`, `make_finding_payload`, `alpha_asset`)
-- `tests/` - one file per resource: `test_auth.py`, `test_assets.py`, `test_findings.py`, `test_scans.py`, `test_reports.py`, `test_orgs.py`
+- `tests/` - one file per resource: `test_auth.py`, `test_assets.py`, `test_findings.py`, `test_scans.py`, `test_reports.py`, `test_tenants.py`
 
 ## Workflow
 
@@ -37,8 +37,27 @@ lives here - tests only, run against the real deployed API (`/openapi.json`). Py
 ## Testing
 
 - Tests create their own throwaway data via the `make_*` factory fixtures - never rely on fixed seed data, the service is shared
-- Known API bugs are encoded as `@pytest.mark.xfail(reason="BUG: ...", strict=True)`, not skipped or loosened - see linked GitHub Issues in each xfail reason for details
-- IMPORTANT: Do not "fix" a xfail test by relaxing its assertion to match current (buggy) behavior
+- Known API bugs use the `xfail_bug(issue_number, description)` helper (see `api/bugs.py`) -
+  combines `@allure.issue` and `@pytest.mark.xfail(strict=True)` with a consistent reason format
+- IMPORTANT: Do not "fix" an xfail test by relaxing its assertion to match current (buggy) behavior
+- If a test fails unexpectedly (not already marked xfail), check open GitHub Issues first before changing any code - 
+  it may be a known bug that needs an `xfail_bug` decorator, or  behavior should be investigated
+
+## Working with GitHub Issues
+
+Tracked bugs live in GitHub Issues (public repo, no auth needed for reads):
+
+```bash
+curl -s https://api.github.com/repos/olehnazarov/secure-vault-tests/issues?state=open
+```
+
+Extract only `number` and `title` from each issuewhen reviewing this list, DO NOT dump the full JSON into context
+
+## Good Commit Message Format
+- feat: adds a new test or feature
+- fix: fixes a test or bug
+- refactor: rewrites/restructures the code
+- imperative mood 
 
 ## Live API quirks
 
