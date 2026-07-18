@@ -26,7 +26,7 @@ Run main test suite (except slow and rate-limit):
 pytest
 ```
 
-Runs the main suite (68 tests, 27 of them `xfail` for known bugs) against the live API.
+Runs the main suite (69 tests, 28 of them `xfail` for known bugs) against the live API.
 Results go to `allure-results/`.
 
 To point the suite at a different env, override `SECUREVAULT_BASE_URL`
