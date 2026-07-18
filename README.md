@@ -71,6 +71,28 @@ pytest -m slow
   summary fields (asset count, finding counts, severity breakdown, risk score) reflect real data changes.
 - **Multi-tenancy**: cross-org isolation for assets, findings, scans, and reports.
 
+## AI-assisted development
+
+AI was used throughout the project as a development partner integrated into the entire engineering workflow: from 
+requirements analysis and test design to debugging, documentation, and delivery automation.
+
+- **Requirements analysis**: parsed the OpenAPI specification and Product Overview into a per-endpoint requirements 
+  checklist (business rules, RBAC, data model constraints) used to drive test design.
+- **Test design & generation**: translated each requirement into concrete test cases and assertions (data isolation,
+  RBAC, severity immutability, one-time refresh tokens, case-insensitive filtering, pagination, delete guards, etc.).
+- **Live API verification**: validated assumptions against the running API to confirm actual status codes, response schemas,
+  and edge-case behavior before finalizing assertions, instead of relying solely on the specification.
+- **Coverage auditing**: compared the completed test suite against the original requirements checklist to identify
+  coverage gaps, resulting in additional tests and confirmed defects.
+- **Refactoring & review**: performed iterative code reviews to improve maintainability by replacing magic strings,
+  extracting shared setup into fixtures/helpers, standardizing cleanup etc.
+- **CI/CD integration**: created the GitHub Actions workflow for automated test execution, Allure report generation,
+  and GitHub Pages publishing.
+- **Project knowledge management & workflow automation**: maintained `CLAUDE.md` as project context 
+  containing stack details, conventions, known API quirks, and development guidelines. 
+  Extended it with GitHub Issues awareness to detect whether newly discovered failures already have existing bug reports.
+  Also used it to generate consistent commit messages and assist with Git workflows.
+
 ## Continuous Integration
 
 Tests run automatically via GitHub Actions on every push to `main` (`.github/workflows/tests.yml`).
