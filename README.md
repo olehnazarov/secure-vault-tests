@@ -1,7 +1,7 @@
 # SecureVault API — Automated Tests
 
 Investigated reported data/security issues in SecureVault, then wrote an automated API test
-suite covering auth, RBAC, multi-tenancy, and business-rule enforcement. 72 tests, 13 documented
+suite covering auth, RBAC, multi-tenancy, and business-rule enforcement. 72 tests, 14 documented
 product bugs - including a Blocker-severity cross-org data isolation bug (BOLA/IDOR) affecting
 assets and findings.
 
@@ -26,7 +26,7 @@ Run main test suite (except slow and rate-limit):
 pytest
 ```
 
-Runs the main suite (69 tests, 28 of them `xfail` for known bugs) against the live API.
+Runs the main suite (69 tests, 29 of them `xfail` for known bugs) against the live API.
 Results go to `allure-results/`.
 
 To point the suite at a different env, override `SECUREVAULT_BASE_URL`
@@ -63,8 +63,8 @@ pytest -m slow
 
 - **Auth**: login (success/invalid credentials/unknown user), refresh flow, logout, no/invalid
   token, rate limiting.
-- **Assets**: CRUD, validation, pagination, RBAC (analyst read/no-create/no-delete), delete-with-open-findings guard.
-- **Findings**: creation, status lifecycle, severity immutability, filtering, pagination, RBAC (analyst read/update status).
+- **Assets**: CRUD, validation, 404s for nonexistent IDs, RBAC (analyst read/no-create/no-update/no-delete), delete-with-open-findings guard.
+- **Findings**: creation, status lifecycle, severity immutability, filtering, pagination, RBAC (analyst read/update status/no-create).
 - **Discovery Scans**: trigger + status polling, polling a non-existent scan, RBAC (analyst read status),
   repeated scans refreshing previously discovered assets.
 - **Reports**: summary for an org with data, for an org with zero findings, RBAC (analyst read summary),
@@ -95,10 +95,13 @@ requirements analysis and test design to debugging, documentation, and delivery 
 
 ## Continuous Integration
 
-Tests run automatically via GitHub Actions on every push to `main` (`.github/workflows/tests.yml`).
+Tests run automatically via GitHub Actions on every push to `main`.
 The Allure report history is published to [GitHub Pages](https://olehnazarov.github.io/secure-vault-tests/)
 
 ## Known product bugs (encoded as `xfail(strict=True)`)
+
+Each `xfail_bug` test is tagged with `allure.issue`, and `pytest.ini` sets `--allure-link-pattern`
+so the Allure report renders a clickable link straight to the corresponding GitHub issue.
 
 Tracked as GitHub issues: https://github.com/olehnazarov/secure-vault-tests/issues
 
