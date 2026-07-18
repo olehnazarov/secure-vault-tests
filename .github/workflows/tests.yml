@@ -1,0 +1,95 @@
+name: SecureVault API Tests
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Allure commandline
+        run: npm install -g allure-commandline
+
+      # Tests are allowed to fail here so the report still gets published;
+      # the real pass/fail signal is captured in run_tests.outcome below.
+      # pytest.ini already excludes `slow`/`rate_limit` and writes to allure-results/.
+      - name: Run tests
+        id: run_tests
+        run: pytest
+        continue-on-error: true
+
+      - name: Generate Allure report
+        if: always()
+        run: allure generate allure-results -o allure-report --clean
+
+      - name: Collect run metadata
+        if: always()
+        run: |
+          mkdir -p report-meta
+          echo "${{ github.run_number }}" > report-meta/run_number.txt
+          echo "${{ github.sha }}" > report-meta/sha.txt
+          echo "${{ steps.run_tests.outcome }}" > report-meta/status.txt
+          date -u +"%Y-%m-%d %H:%M UTC" > report-meta/date.txt
+
+      # Pulls the existing report history so this run's report gets
+      # added alongside previous ones instead of replacing them.
+      # Fails silently on the very first run, when gh-pages doesn't exist yet.
+      - name: Checkout existing report history
+        if: always()
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-history
+        continue-on-error: true
+
+      - name: Add this run to the history + rebuild index
+        if: always()
+        run: |
+          mkdir -p gh-pages-history/reports
+          RUN_NUMBER="${{ github.run_number }}"
+          RUN_DIR="gh-pages-history/reports/${RUN_NUMBER}"
+          mkdir -p "$RUN_DIR"
+          cp -r allure-report/* "$RUN_DIR"/
+
+          STATUS=$(cat report-meta/status.txt)
+          SHA=$(cat report-meta/sha.txt)
+          DATE=$(cat report-meta/date.txt)
+
+          echo "${RUN_NUMBER}|${DATE}|${SHA}|${STATUS}" >> gh-pages-history/runs.log
+
+          node layout/generate-report-index.mjs gh-pages-history
+
+      - name: Deploy report history to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: gh-pages-history
+          keep_files: false
+
+      # Fail the workflow run itself if tests failed, now that the
+      # report has already been published above.
+      - name: Fail job if tests failed
+        if: steps.run_tests.outcome != 'success'
+        run: exit 1
