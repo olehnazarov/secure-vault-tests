@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: GET
+URL: http://18.215.161.231:8000/reports/summary
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:31:37 GMT', 'server': 'uvicorn', 'content-length': '187', 'content-type': 'application/json'}
+Body:
+{"org_id":"org-alpha","total_assets":864,"total_findings":708,"open_findings":459,"severity_breakdown":{"CRITICAL":89,"HIGH":75,"MEDIUM":254,"LOW":21,"INFO":20},"risk_score_percent":64.8}

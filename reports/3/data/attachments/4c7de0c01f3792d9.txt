@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: GET
+URL: http://18.215.161.231:8000/scans/a5865055-bd47-4a70-ac0b-0d457cba6782/status
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 404
+Headers: {'date': 'Sat, 18 Jul 2026 15:31:40 GMT', 'server': 'uvicorn', 'content-length': '27', 'content-type': 'application/json'}
+Body:
+{"detail":"Scan not found"}

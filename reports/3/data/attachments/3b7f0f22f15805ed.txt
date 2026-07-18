@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/findings
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]', 'content-length': '116', 'content-type': 'application/json'}
+Body:
+{"title": "Test Finding 7636f75c", "severity": "NOT_A_SEVERITY", "asset_id": "189440e9-a8f4-4b7a-ad78-4edcb1200cec"}
+
+=== RESPONSE ===
+Status Code: 400
+Headers: {'date': 'Sat, 18 Jul 2026 15:31:35 GMT', 'server': 'uvicorn', 'content-length': '83', 'content-type': 'application/json'}
+Body:
+{"detail":"Invalid severity. Valid: ['CRITICAL', 'HIGH', 'INFO', 'LOW', 'MEDIUM']"}
