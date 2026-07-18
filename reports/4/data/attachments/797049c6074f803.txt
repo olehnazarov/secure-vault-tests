@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/assets
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]', 'content-length': '68', 'content-type': 'application/json'}
+Body:
+{"name": "", "asset_type": "EC2", "cloud_account": "", "region": ""}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 18:15:30 GMT', 'server': 'uvicorn', 'content-length': '240', 'content-type': 'application/json'}
+Body:
+{"id":"fd4513f2-bd33-4de0-a526-54c0d98661cb","name":"","asset_type":"EC2","cloud_account":"","region":"","org_id":"org-alpha","tags":{},"created_at":"2026-07-18T18:15:31.499707","updated_at":"2026-07-18T18:15:31.499710","last_seen_by":null}

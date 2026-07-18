@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: PATCH
+URL: http://18.215.161.231:8000/findings/6e642404-629e-41da-91f1-6f2afb3e6b86/status
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]', 'content-length': '23', 'content-type': 'application/json'}
+Body:
+{"status": "mitigated"}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 18:15:37 GMT', 'server': 'uvicorn', 'content-length': '306', 'content-type': 'application/json'}
+Body:
+{"id":"6e642404-629e-41da-91f1-6f2afb3e6b86","title":"Test Finding ced6304f","description":null,"severity":"MEDIUM","status":"mitigated","asset_id":"7b2c5cec-666b-4bbb-9ea3-77e6411d14e8","org_id":"org-alpha","cve_id":null,"created_at":"2026-07-18T18:15:38.283340","updated_at":"2026-07-18T18:15:38.360556"}

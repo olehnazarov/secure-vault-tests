@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/auth/logout
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'content-length': '107', 'content-type': 'application/json'}
+Body:
+{"refresh_token": "R2e0YoGUYzcbvn68J8n1cJkcRW8ozXrx0FGDfTfW0Nmv09RSwONG0DRDhkXVjvNK9m6_YkF8NjjeR3uns7ZxqA"}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 18:15:35 GMT', 'server': 'uvicorn', 'content-length': '24', 'content-type': 'application/json'}
+Body:
+{"message":"Logged out"}
