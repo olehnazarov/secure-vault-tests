@@ -1,11 +1,11 @@
 # SecureVault API — Automated Tests
 
 Investigated reported data/security issues in SecureVault, then wrote an automated API test
-suite covering auth, RBAC, multi-tenancy, and business-rule enforcement. 71 tests, 11 documented
+suite covering auth, RBAC, multi-tenancy, and business-rule enforcement. 72 tests, 13 documented
 product bugs - including a Blocker-severity cross-org data isolation bug (BOLA/IDOR) affecting
 assets and findings.
 
-**Live test report:** "ToDo: Link on Github Pages"
+**Live test report:** [Report](https://olehnazarov.github.io/secure-vault-tests/)
 
 Automated API tests for the SecureVault CSPM service, written against the live
 [OpenAPI spec](http://18.215.161.231:8000/openapi.json) ([Swagger UI](http://18.215.161.231:8000/docs)).
@@ -74,8 +74,7 @@ pytest -m slow
 ## Continuous Integration
 
 Tests run automatically via GitHub Actions on every push to `main` (`.github/workflows/tests.yml`).
-The Allure report history is published to GitHub Pages:
-"ToDo: Link on Github Pages"
+The Allure report history is published to [GitHub Pages](https://olehnazarov.github.io/secure-vault-tests/)
 
 ## Known product bugs (encoded as `xfail(strict=True)`)
 
@@ -87,7 +86,7 @@ No documented rule is broken, so tests assert the actual behavior instead of `xf
 
 - `POST /assets`, `/findings`, `/scans` return `200`; spec says `201`.
 - Successful `DELETE /assets/{id}` returns `200`; spec says `204`.
-- Missing/invalid token status codes are inconsistent (ToDo: Link on Github Issue)
+- Missing/invalid token status codes are inconsistent [Issue](https://github.com/olehnazarov/secure-vault-tests/issues/9)
 - The live server closes idle connections faster than `httpx`'s default (5 sec) timeout,
   occasionally causing `RemoteProtocolError`. Fixed client-side via a shorter
   `keepalive_expiry` in `ApiClient`.
