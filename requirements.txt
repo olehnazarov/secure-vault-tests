@@ -1,0 +1,4 @@
+pytest==8.1.1
+httpx==0.27.0
+allure-pytest==2.13.5
+allure-python-commons==2.13.5
