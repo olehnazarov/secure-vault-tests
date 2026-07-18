@@ -51,12 +51,13 @@ Tracked bugs live in GitHub Issues (public repo, no auth needed for reads):
 curl -s https://api.github.com/repos/olehnazarov/secure-vault-tests/issues?state=open
 ```
 
-Extract only `number` and `title` from each issuewhen reviewing this list, DO NOT dump the full JSON into context
+Extract only `number` and `title` from each issue when reviewing this list, DO NOT dump the full JSON into context
 
 ## Good Commit Message Format
 - feat: adds a new test or feature
 - fix: fixes a test or bug
 - refactor: rewrites/restructures the code
+- doc: adds/rewrites documentation, readme, comments
 - imperative mood 
 
 ## Live API quirks
