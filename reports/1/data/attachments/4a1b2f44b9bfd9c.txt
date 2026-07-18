@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: GET
+URL: http://18.215.161.231:8000/assets/fb313e6c-9fba-4657-9a9f-ec0a1748e305
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:03:58 GMT', 'server': 'uvicorn', 'content-length': '280', 'content-type': 'application/json'}
+Body:
+{"id":"fb313e6c-9fba-4657-9a9f-ec0a1748e305","name":"Test Asset 9f6982a5","asset_type":"VPC","cloud_account":"123456789012","region":"us-east-1","org_id":"org-alpha","tags":{},"created_at":"2026-07-18T15:03:58.572249","updated_at":"2026-07-18T15:03:58.572252","last_seen_by":null}

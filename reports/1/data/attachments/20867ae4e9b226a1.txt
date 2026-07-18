@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: GET
+URL: http://18.215.161.231:8000/assets/4d87c149-82c6-47de-b794-7239562ebe26
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:04:05 GMT', 'server': 'uvicorn', 'content-length': '280', 'content-type': 'application/json'}
+Body:
+{"id":"4d87c149-82c6-47de-b794-7239562ebe26","name":"Test Asset 9996c504","asset_type":"EC2","cloud_account":"123456789012","region":"us-east-1","org_id":"org-alpha","tags":{},"created_at":"2026-07-18T15:04:05.939161","updated_at":"2026-07-18T15:04:05.939164","last_seen_by":null}

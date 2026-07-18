@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: GET
+URL: http://18.215.161.231:8000/findings?severity=high&asset_id=54f10e2a-9206-4f1b-8b1b-c35fd4470d03
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:04:03 GMT', 'server': 'uvicorn', 'content-length': '42', 'content-type': 'application/json'}
+Body:
+{"total":0,"page":1,"limit":20,"items":[]}

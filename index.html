@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SecureVault Allure Report history</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page:       #faf9f5;
+    --surface:    #ffffff;
+    --ink:        #1f1e1d;
+    --ink-2:      #6b6a66;
+    --ink-muted:  #928f87;
+    --border:     rgba(31,30,29,0.10);
+    --accent:     #d97757;
+    --accent-ink: #b54e30;
+    --good:       #1a7f37;
+    --good-bg:    #e9f5ec;
+    --bad:        #cf222e;
+    --bad-bg:     #fbeaea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --page:       #171615;
+      --surface:    #262624;
+      --ink:        #f5f4ef;
+      --ink-2:      #b5b3ac;
+      --ink-muted:  #83807a;
+      --border:     rgba(255,255,255,0.10);
+      --accent:     #e08a64;
+      --accent-ink: #e08a64;
+      --good:       #4ade80;
+      --good-bg:    rgba(74,222,128,0.12);
+      --bad:        #f85149;
+      --bad-bg:     rgba(248,81,73,0.12);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 48px 20px 80px;
+    background: var(--page);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  header { margin-bottom: 32px; }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-weight: 500;
+    font-size: 2rem;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .sub { color: var(--ink-2); font-size: 0.95rem; margin: 0; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 28px 0 32px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    margin: 0 0 6px;
+  }
+  .stat-value {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-value.accent { color: var(--accent-ink); }
+  .stat-value.good { color: var(--good); }
+  .stat-value.bad { color: var(--bad); }
+  .sparkline {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 32px;
+  }
+  .sparkline-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    margin: 0 0 12px;
+  }
+  .dots { display: flex; flex-wrap: wrap; gap: 5px; }
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .dot.pass { background: var(--good); }
+  .dot.fail { background: var(--bad); }
+  .dot:hover { outline: 2px solid var(--accent); outline-offset: 1px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  th, td { padding: 11px 16px; text-align: left; font-size: 0.9rem; }
+  th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  tbody tr:not(:last-child) td { border-bottom: 1px solid var(--border); }
+  td code { font-size: 0.85rem; color: var(--ink-2); }
+  a { color: var(--accent-ink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .badge.pass { color: var(--good); background: var(--good-bg); }
+  .badge.fail { color: var(--bad); background: var(--bad-bg); }
+  .badge-icon { font-size: 0.78rem; }
+  footer {
+    margin-top: 28px;
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>SecureVault Allure Report History</h1>
+      <p class="sub">SecureVault API test runs on every push to main</p>
+    </header>
+
+    <div class="stats">
+      <div class="stat">
+        <p class="stat-label">Total runs</p>
+        <p class="stat-value">1</p>
+      </div>
+      <div class="stat">
+        <p class="stat-label">Pass rate</p>
+        <p class="stat-value accent">100%</p>
+      </div>
+      <div class="stat">
+        <p class="stat-label">Last run</p>
+        <p class="stat-value good">Passed</p>
+      </div>
+      <div class="stat">
+        <p class="stat-label">Last run date</p>
+        <p class="stat-value" style="font-size:1.1rem">2026-07-18 15:04 UTC</p>
+      </div>
+    </div>
+
+    <div class="sparkline">
+      <p class="sparkline-label">Last 1 runs</p>
+      <div class="dots"><a class="dot pass" href="reports/1/" title="#1 · 2026-07-18 15:04 UTC · passed"></a></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Run</th><th>Date</th><th>Commit</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><a href="reports/1/">#1</a></td>
+        <td>2026-07-18 15:04 UTC</td>
+        <td><code>c5dd4a7</code></td>
+        <td><span class="badge pass"><span class="badge-icon">✓</span>Passed</span></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <footer>Generated by GitHub Actions</footer>
+  </div>
+</body>
+</html>

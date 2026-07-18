@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: PATCH
+URL: http://18.215.161.231:8000/findings/d497864f-0819-4564-8670-ccd3614101a3/status
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]', 'content-length': '20', 'content-type': 'application/json'}
+Body:
+{"status": "closed"}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:04:05 GMT', 'server': 'uvicorn', 'content-length': '303', 'content-type': 'application/json'}
+Body:
+{"id":"d497864f-0819-4564-8670-ccd3614101a3","title":"Test Finding 44dffda4","description":null,"severity":"MEDIUM","status":"closed","asset_id":"0ea352d9-1e9e-45ce-9e0b-9c83db6cf4f7","org_id":"org-alpha","cve_id":null,"created_at":"2026-07-18T15:04:06.355463","updated_at":"2026-07-18T15:04:06.389790"}

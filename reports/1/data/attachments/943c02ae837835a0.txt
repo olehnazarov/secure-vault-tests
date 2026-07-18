@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/findings
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]', 'content-length': '108', 'content-type': 'application/json'}
+Body:
+{"title": "Test Finding 0115d328", "severity": "MEDIUM", "asset_id": "6d301b46-7a34-4f45-aea0-0a18235b75f4"}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sat, 18 Jul 2026 15:04:03 GMT', 'server': 'uvicorn', 'content-length': '301', 'content-type': 'application/json'}
+Body:
+{"id":"6aa0bff4-55c8-43e5-aef1-d9498ae8a98a","title":"Test Finding 0115d328","description":null,"severity":"MEDIUM","status":"open","asset_id":"6d301b46-7a34-4f45-aea0-0a18235b75f4","org_id":"org-alpha","cve_id":null,"created_at":"2026-07-18T15:04:04.144312","updated_at":"2026-07-18T15:04:04.144315"}
