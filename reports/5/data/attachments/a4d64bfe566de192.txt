@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: DELETE
+URL: http://18.215.161.231:8000/assets/3432fbb3-cc15-4432-9240-5e8dbf1d5c99
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sun, 19 Jul 2026 07:38:53 GMT', 'server': 'uvicorn', 'content-length': '27', 'content-type': 'application/json'}
+Body:
+{"message":"Asset deleted"}

@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/auth/login
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'content-length': '58', 'content-type': 'application/json'}
+Body:
+{"email": "admin@org-alpha.com", "password": "Alpha@1234"}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sun, 19 Jul 2026 07:38:54 GMT', 'server': 'uvicorn', 'content-length': '378', 'content-type': 'application/json'}
+Body:
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNjFhMTA5Yi1kNDUyLTQ1NjYtYmM2MC02MTlhZjcyZTEzNWEiLCJvcmciOiJvcmctYWxwaGEiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODQ0NDg1MzQsImlhdCI6MTc4NDQ0NjczNH0.aUF9BbbTCGaAWThHlx-Gc4LXP9OKSxXt3gdh30bLOMg","refresh_token":"_OvcBncwvNQO9Fu_iBfmwgh6Y7MYdSkyARd9MaoucqsyYoZ0UvFNVisdsd-3ppZntxrh_BrRSSWXmAR3lVT26g","token_type":"bearer"}

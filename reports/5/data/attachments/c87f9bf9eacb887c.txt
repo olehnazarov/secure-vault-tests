@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: GET
+URL: http://18.215.161.231:8000/findings?page=1&limit=5
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sun, 19 Jul 2026 07:39:01 GMT', 'server': 'uvicorn', 'content-length': '1849', 'content-type': 'application/json'}
+Body:
+{"total":798,"page":1,"limit":5,"items":[{"id":"30ab9e19-9911-483c-9041-a9ad257e853a","title":"Unrestricted SSH access","description":"Security group allows 0.0.0.0/0 on port 22","severity":"CRITICAL","status":"open","asset_id":"eb5a6e78-4eee-4331-92ae-425b8f07e80a","org_id":"org-alpha","cve_id":null,"created_at":"2026-05-28T14:16:35.302853","updated_at":"2026-05-28T14:16:35.302855"},{"id":"45ce11b2-15fc-4422-84df-c40578aa535b","title":"S3 bucket publicly readable","description":"Bucket ACL grants public read access","severity":"HIGH","status":"open","asset_id":"2740f415-1eba-4fdd-8f3a-90e3a75536e9","org_id":"org-alpha","cve_id":null,"created_at":"2026-05-28T14:16:35.302855","updated_at":"2026-05-28T14:16:35.302855"},{"id":"2a22e09b-88b9-4e2e-b96a-cb40904e273f","title":"Outdated TLS version","description":"TLS 1.0 still enabled on load balancer","severity":"MEDIUM","status":"mitigated","asset_id":"eb5a6e78-4eee-4331-92ae-425b8f07e80a","org_id":"org-alpha","cve_id":null,"created_at":"2026-05-28T14:16:35.302856","updated_at":"2026-05-28T14:16:35.302856"},{"id":"399452a5-1892-4789-9379-d42770145bb0","title":"Unrestricted SSH access","description":"Security group allows inbound SSH from the internet. Asset: discovered-ec2-001.","severity":"CRITICAL","status":"open","asset_id":"64f57a7e-f7b3-4f9c-92af-5d16692827e4","org_id":"org-alpha","cve_id":"CVE-480","created_at":"2026-07-16T16:42:03.628938","updated_at":"2026-07-16T16:42:03.628941"},{"id":"2a7da6ea-8756-424a-9e05-cccf858a4e86","title":"S3 bucket missing encryption","description":"Bucket does not enforce default server-side encryption. Asset: discovered-s3-002.","severity":"HIGH","status":"open","asset_id":"8219f16e-3ba9-474e-85f6-fb0dfa271246","org_id":"org-alpha","cve_id":"CVE-130","created_at":"2026-07-16T16:42:03.628942","updated_at":"2026-07-16T16:42:03.628943"}]}

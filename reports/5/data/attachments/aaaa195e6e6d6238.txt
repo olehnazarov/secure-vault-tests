@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/assets
+Headers: {'host': '18.215.161.231:8000', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]', 'content-length': '105', 'content-type': 'application/json'}
+Body:
+{"name": "Test Asset c2ea7c5a", "asset_type": "", "cloud_account": "123456789012", "region": "us-east-1"}
+
+=== RESPONSE ===
+Status Code: 400
+Headers: {'date': 'Sun, 19 Jul 2026 07:38:52 GMT', 'server': 'uvicorn', 'content-length': '84', 'content-type': 'application/json'}
+Body:
+{"detail":"Invalid asset_type. Valid: {'VPC', 'Lambda', 'RDS', 'EC2', 'S3', 'EKS'}"}

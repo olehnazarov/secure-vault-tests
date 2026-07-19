@@ -1,0 +1,12 @@
+=== REQUEST ===
+Method: POST
+URL: http://18.215.161.231:8000/scans
+Headers: {'host': '18.215.161.231:8000', 'content-length': '0', 'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'user-agent': 'python-httpx/0.27.0', 'authorization': '[REDACTED]'}
+Body:
+{}
+
+=== RESPONSE ===
+Status Code: 200
+Headers: {'date': 'Sun, 19 Jul 2026 07:39:02 GMT', 'server': 'uvicorn', 'content-length': '119', 'content-type': 'application/json'}
+Body:
+{"message":"Scan started","scan_id":"82043482-d8b7-4839-a6c6-51864d18218b","status":"IN_PROGRESS","attempt_number":183}
