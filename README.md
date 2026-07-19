@@ -1,3 +1,4 @@
+![Tests](https://github.com/olehnazarov/secure-vault-tests/actions/workflows/tests.yml/badge.svg)
 # SecureVault API — Automated Tests
 
 Investigated reported data/security issues in SecureVault, then wrote an automated API test
@@ -10,6 +11,18 @@ assets and findings.
 Automated API tests for the SecureVault CSPM service, written against the live
 [OpenAPI spec](http://18.215.161.231:8000/openapi.json) ([Swagger UI](http://18.215.161.231:8000/docs)).
 Stack: `pytest` + `httpx` + `allure-pytest`.
+
+## Contents
+- [Setup](#setup)
+- [Running the tests](#running-the-tests)
+- [What's covered](#whats-covered)
+- [AI-assisted development](#ai-assisted-development)
+- [Continuous Integration](#continuous-integration)
+- [Known product bugs](#known-product-bugs-encoded-as-xfailstricttrue)
+- [Minor spec/implementation discrepancies](#minor-specimplementation-discrepancies-not-asserted-as-bugs)
+- [What I couldn't do, and why](#what-i-couldnt-do-and-why)
+
+---
 
 ## Setup
 
@@ -59,6 +72,8 @@ the default run to keep it fast:
 pytest -m slow
 ```
 
+---
+
 ## What's covered
 
 - **Auth**: login (success/invalid credentials/unknown user), refresh flow, logout, no/invalid
@@ -73,10 +88,10 @@ pytest -m slow
 
 ## AI-assisted development
 
-AI was used throughout the project as a development partner integrated into the entire engineering workflow: from 
+AI was used throughout the project as a development partner integrated into the entire engineering workflow: from
 requirements analysis and test design to debugging, documentation, and delivery automation.
 
-- **Requirements analysis**: parsed the OpenAPI specification and Product Overview into a per-endpoint requirements 
+- **Requirements analysis**: parsed the OpenAPI specification and Product Overview into a per-endpoint requirements
   checklist (business rules, RBAC, data model constraints) used to drive test design.
 - **Test design & generation**: translated each requirement into concrete test cases and assertions (data isolation,
   RBAC, severity immutability, one-time refresh tokens, case-insensitive filtering, pagination, delete guards, etc.).
@@ -88,15 +103,17 @@ requirements analysis and test design to debugging, documentation, and delivery 
   extracting shared setup into fixtures/helpers, standardizing cleanup etc.
 - **CI/CD integration**: created the GitHub Actions workflow for automated test execution, Allure report generation,
   and GitHub Pages publishing.
-- **Project knowledge management & workflow automation**: maintained `CLAUDE.md` as project context 
-  containing stack details, conventions, known API quirks, and development guidelines. 
+- **Project knowledge management & workflow automation**: maintained `CLAUDE.md` as project context
+  containing stack details, conventions, known API quirks, and development guidelines.
   Extended it with GitHub Issues awareness to detect whether newly discovered failures already have existing bug reports.
   Also used it to generate consistent commit messages and assist with Git workflows.
+
+---
 
 ## Continuous Integration
 
 Tests run automatically via GitHub Actions on every push to `main`.
-The Allure report history is published to [GitHub Pages](https://olehnazarov.github.io/secure-vault-tests/)
+The Allure report history is published to [GitHub Pages](https://olehnazarov.github.io/secure-vault-tests/).
 
 ## Known product bugs (encoded as `xfail(strict=True)`)
 
@@ -111,11 +128,12 @@ No documented rule is broken, so tests assert the actual behavior instead of `xf
 
 - `POST /assets`, `/findings`, `/scans` return `200`; spec says `201`.
 - Successful `DELETE /assets/{id}` returns `200`; spec says `204`.
-- Missing/invalid token status codes are inconsistent [Issue](https://github.com/olehnazarov/secure-vault-tests/issues/9)
+- Missing/invalid token status codes are inconsistent ([issue](https://github.com/olehnazarov/secure-vault-tests/issues/9))
 - The live server closes idle connections faster than `httpx`'s default (5 sec) timeout,
   occasionally causing `RemoteProtocolError`. Fixed client-side via a shorter
   `keepalive_expiry` in `ApiClient`.
 
+---
 
 ## What I couldn't do, and why
 
@@ -125,29 +143,36 @@ No documented rule is broken, so tests assert the actual behavior instead of `xf
   provided. This means RBAC (role) and multi-tenancy were each fully tested individually,
   but never together in org-beta - I can't confirm analyst restrictions are enforced identically
   across organizations, only that they work in org-alpha specifically. Given a second analyst
-  account in any other org.
+  account in any other org, I'd add one cross-check rather than a full re-test of every RBAC scenario.
 - **No visibility into recent changes** - no access to commit history, CI/deploy logs, or existing
   test coverage for the service. Investigating blind, without knowing what changed recently or
   what's already known to be untested, means some risk areas may have been under- or over-prioritized.
 
 ### Time constraints
 
+**Coverage depth**
+- **Functional coverage depth** — the focus was on high-risk business logic, authorization, and
+  defect discovery rather than exhaustive endpoint validation. Most endpoints still require
+  significantly deeper functional coverage, including request validation, field-level assertions,
+  JSON payload combinations, boundary value analysis, negative scenarios, and response model
+  verification.
 - **Contract/schema validation** against `openapi.json` (e.g. `schemathesis`) — would catch drift
   like the 200-vs-201 mismatches automatically instead of by hand.
+- **Input sanitization / injection testing** — not systematically probed. Worth testing
+  filter/search parameters for injection specifically, not just malformed input.
 - **Performance / scale testing** — all coverage here is functional API testing; nothing
   validates behavior under high data volume or concurrent load. Given more time, I'd start with
   `GET /findings` and `/reports/summary`, since filtering and aggregation are the most likely to
   degrade under a large dataset.
-- **Input sanitization / injection testing** — not systematically probed. Worth testing
-  filter/search parameters for injection specifically, not just malformed input.
 - **Discovery Scan accuracy** — tests confirm a scan completes and refreshes existing assets, but
   not whether it discovers the *correct* real AWS resources (no false positives/negatives). Would
   need a controlled AWS test account with known resources.
+
+**Tooling polish**
 - **A dedicated rate-limit account/IP** so `test_login_rate_limit` doesn't need to run in isolation.
-- **Concurrency tests**: parallel refresh-token reuse, overlapping scans for the same org.
 - **Nicer Allure step breakdown**: right now each step is just "API Request: METHOD URL" plus a
-  raw request/response log attachment. Wrapping test logic in named `allure.step()` blocks (e.g. "Create asset", 
-  "Trigger scan" etc.) would make the report read like the test's actual scenario 
+  raw request/response log attachment. Wrapping test logic in named `allure.step()` blocks (e.g. "Create asset",
+  "Trigger scan" etc.) would make the report read like the test's actual scenario
   instead of a flat list of HTTP calls.
 - **Hide sensitive data**: `config.py` has plaintext passwords for all test accounts and BASE_URL.
   Good practice would be to move these to a secrets manager or env vars instead of committing them.
